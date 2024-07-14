@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+models/nba_mvp_model.joblib
+data/raw/
+data/processed/
