@@ -6,3 +6,6 @@ joblib
 pydantic
 seaborn
 matplotlib
+pytest
+pytest-asyncio
+httpx
