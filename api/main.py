@@ -6,6 +6,8 @@ import numpy as np
 from .models.mvp_model import mvp_model
 from .schemas.player_stats import PlayerStats
 
+### WILL BE USING https://github.com/swar/nba_api/ FOR POSTGAME DATA RETREIVAL ###
+
 app = FastAPI()
 
 @app.post("/predict")
