@@ -9,4 +9,3 @@ matplotlib
 pytest
 pytest-asyncio
 httpx
-nba_api
