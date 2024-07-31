@@ -3,12 +3,17 @@ from pydantic import BaseModel
 from typing import List
 import numpy as np
 
+from scheduler import start_scheduler
 from .models.mvp_model import mvp_model
 from .schemas.player_stats import PlayerStats
 
 ### WILL BE USING https://github.com/swar/nba_api/ FOR POSTGAME DATA RETREIVAL ###
 
 app = FastAPI()
+
+@app.on_event("startup")
+def on_startup():
+    start_scheduler()
 
 @app.post("/predict")
 def predict_mvp(player_stats: PlayerStats):
