@@ -19,7 +19,7 @@ def fetchToModel(name):
         dws = df.at[0, 'DWS'],
         ws = df.at[0,'WS'],
         per = df.at[0, 'PER'],
-        pts_per_g = df.at[0, 'PPG'],
+        pts_per_g = df2.at[0, 'PTS'],
         fg_per_g = df2.at[0,'FG']
     )
     return stats

@@ -24,29 +24,24 @@ def mock_get_stats():
         })
         per_game_stats = pd.DataFrame({
             'FG': [8.5],
-            'PTS' : [25.7]
+            'PTS' : [25.0]
         })
         mock.side_effect = [advanced_stats, per_game_stats]
         yield mock
 
-@pytest.fixture
-def mock_predict_mvp():
-    with patch('scripts.fetch_player_data.predict_mvp') as mock:
-        mock.return_value = {"mvp_award_share_prediction": 0.75}
-        yield mock
-
-def test_fetch_to_model(mock_get_stats, mock_predict_mvp):
+def test_fetch_to_model(mock_get_stats):
     result = fetchToModel("LeBron James")
     
     assert mock_get_stats.call_count == 2
     
-    mock_predict_mvp.assert_called_once()
-    
-    called_stats = mock_predict_mvp.call_args[0][0]
-    
-    print(f"Called stats: {vars(called_stats)}")
-    
-    assert result == {"mvp_award_share_prediction": 0.75}
+    assert isinstance(result, PlayerStats)
+    assert result.vorp == 5.2
+    assert result.ows == 4.1
+    assert result.dws == 2.3
+    assert result.ws == 6.4
+    assert result.per == 25.6
+    assert result.fg_per_g == 8.5
+    assert result.pts_per_g == 25.0
 
 def test_fetch_to_model_error_handling():
     with patch('scripts.fetch_player_data.get_stats', side_effect=Exception("API Error")):

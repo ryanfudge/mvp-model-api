@@ -1,3 +1,4 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List
@@ -8,12 +9,13 @@ from .schemas.player_stats import PlayerStats
 
 ### WILL BE USING https://github.com/swar/nba_api/ FOR POSTGAME DATA RETREIVAL ###
 
-app = FastAPI()
-
-@app.on_event("startup")
-def on_startup():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
     from .scheduler import start_scheduler
     start_scheduler()
+    yield
+
+app = FastAPI(lifespan=lifespan)
 
 @app.post("/predict")
 def predict_mvp(player_stats: PlayerStats):
