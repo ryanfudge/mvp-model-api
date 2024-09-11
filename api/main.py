@@ -3,7 +3,6 @@ from pydantic import BaseModel
 from typing import List
 import numpy as np
 
-from scheduler import start_scheduler
 from .models.mvp_model import mvp_model
 from .schemas.player_stats import PlayerStats
 
@@ -13,6 +12,7 @@ app = FastAPI()
 
 @app.on_event("startup")
 def on_startup():
+    from .scheduler import start_scheduler
     start_scheduler()
 
 @app.post("/predict")

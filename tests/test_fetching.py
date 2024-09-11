@@ -23,7 +23,8 @@ def mock_get_stats():
             'PER': [25.6]
         })
         per_game_stats = pd.DataFrame({
-            'FG': [8.5]
+            'FG': [8.5],
+            'PTS' : [25.7]
         })
         mock.side_effect = [advanced_stats, per_game_stats]
         yield mock

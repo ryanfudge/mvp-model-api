@@ -3,13 +3,13 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import pytest
-from httpx import AsyncClient, ASGITransport
+from httpx import AsyncClient
 from api.main import app
 
 @pytest.mark.asyncio
 async def test_predict():
-    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
-        # Example payload for prediction
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        
         payload = {
             "vorp": 6.4,
             "per": 31.4,
